@@ -1,0 +1,36 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Candidate {
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+  password  String
+  projects  Project[]  @relation("CandidateProjects")
+}
+
+model Project {
+  id          String     @id @default(uuid())
+  name        String
+  description String
+  status      String
+  candidateId String?
+  candidate   Candidate? @relation("CandidateProjects", fields: [candidateId], references: [id], map: "Project_candidateId_fkey")
+  progress    Progress?
+}
+
+model Progress {
+  id            String   @id @default(uuid())
+  projectId     String   @unique
+  project       Project  @relation(fields: [projectId], references: [id])
+  completedTasks Int
+  totalTasks    Int
+  progress      Float
+  score         Float
+}
