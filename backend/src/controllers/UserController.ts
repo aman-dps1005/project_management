@@ -16,7 +16,7 @@ export const createUser=async(req:Request,res:Response)=>{
                 password
             }
         });
-        var token=jwt.sign({id:user.id},JWT_SECRET,{expiresIn:'10d'});
+        var token=jwt.sign({id:user.id},JWT_SECRET);
         res.status(201).json({token:token});
     }
     catch(error){
@@ -44,7 +44,7 @@ export const signin=async (req:Request,res:Response)=>{
         }
     })
     if(user){
-        var token=jwt.sign({id:user.id},JWT_SECRET,{expiresIn:'10d'});
+        var token=jwt.sign({id:user.id},JWT_SECRET);
         res.status(201).json({token:token});
     }
     else{

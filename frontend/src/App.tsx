@@ -1,14 +1,21 @@
-import { useState } from 'react'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SignIn from "./Pages/Signin";
+import SignUp from "./Pages/Signup";
+import DashBoard from "./Pages/DashBoard";
 
-function App() {
-  const [count, setCount] = useState(0)
 
+
+const App: React.FC = () => {
   return (
-    <div className='bg-red-400'>
-      {count}
-    </div>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/dashboard" element={<DashBoard/>}/>
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
