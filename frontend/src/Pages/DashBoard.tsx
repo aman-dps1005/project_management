@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -30,6 +31,7 @@ async function handleProjectCompletion(id:string){
 const DashBoard = () => {
   const [projects, setProjects] = useState<[]>([]);
   const [myProjects,setMyProjects]=useState<[]>([]);
+  const navigate=useNavigate();
 
   useEffect(() => {
     async function fetchProjects() {
@@ -67,6 +69,12 @@ const DashBoard = () => {
 
   return (
     <div>
+      <div className="flex justify-end">
+        <button className="bg-red-600 text-white px-6 py-3 rounded-full mt-4 mx-4" onClick={()=>{
+          localStorage.removeItem('token');
+          navigate("/login")
+        }}>Log Out</button>
+      </div>
       <div className="projects-container">
         {projects.map((project: any) => (
           <div key={project.id} className="p-4 my-8 mx-4 bg-slate-400 rounded-md">
